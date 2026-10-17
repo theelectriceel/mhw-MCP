@@ -1,0 +1,11 @@
+{
+  "sources": ["bantry_wave_buoy"],
+  "selections": {
+    "bantry_wave_buoy": {
+      "constraints": [
+        {"field": "time", "op": ">=", "value": "2024-09-23T00:00:00Z"},
+        {"field": "time", "op": "<", "value": "2024-09-25T00:00:00Z"}
+      ]
+    }
+  }
+}

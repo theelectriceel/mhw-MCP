@@ -1,0 +1,6 @@
+{
+  "sources": ["eurosea_sst", "eurosea_clim", "eurosea_mhw", "eurosea_cs", "bantry_phyto", "bantry_particles_csv", "bantry_wave_buoy"],
+  "selections": {
+    "bantry_phyto": {"constraints": [{"field": "time", "op": ">=", "value": "2025-01-01T00:00:00Z"}]}
+  }
+}

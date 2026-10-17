@@ -1,0 +1,49 @@
+{
+  "ocean_colour": {
+    "name": "Ocean colour from 1997 to present derived from satellite observations",
+    "adapter": "cds",
+    "url": "https://cds.climate.copernicus.eu/datasets/satellite-ocean-colour",
+    "dataset": "satellite-ocean-colour",
+    "ttl_seconds": 604800,
+    "latitude": 51.675,
+    "longitude": -9.625,
+    "request": {
+      "variable": ["mass_concentration_of_chlorophyll_a"],
+      "projection": "regular_latitude_longitude_grid",
+      "temporal_resolution": "daily",
+      "year": ["2026"], "month": ["03"], "day": ["31"], "version": "6_0"
+    },
+    "normalization": {"value_field": "chlor_a", "variable": "chlorophyll_a_concentration", "unit": "mg m-3"}
+  },
+  "bantry_phyto": {
+    "url": "https://erddap3.marine.ie/erddap/tabledap/habs_phyto.htmlTable?aphia_id%2Cscientific_name%2CSpeciesReferenceURL%2Csamplecode%2Ctime%2CPublishedDate%2Clatitude%2Clongitude%2Clocation_name%2Ccount%2Ctoxic%2Ctoxin_name%2Cweek_no%2Cweekdatefrom%2Clocation_id%2Cregion_name%2Cparent_area_id%2Cparent_area_code%2Cparent_area_name%2Clocation_code&parent_area_name=~%22(%3Fi).*bantry.*%22",
+    "ttl_seconds": 86400
+  },
+  "eurosea_sst": {"adapter": "eurosea", "url": "https://eurosea.marine.ie/his", "dataset_type": "sst", "location": "51.675N-9.625W", "ttl_seconds": 86400},
+  "eurosea_clim": {"adapter": "eurosea", "url": "https://eurosea.marine.ie/his", "dataset_type": "clim", "location": "51.675N-9.625W", "ttl_seconds": 604800},
+  "eurosea_mhw": {"adapter": "eurosea", "url": "https://eurosea.marine.ie/his", "dataset_type": "mhw", "location": "51.675N-9.625W", "ttl_seconds": 86400},
+  "eurosea_cs": {"adapter": "eurosea", "url": "https://eurosea.marine.ie/his", "dataset_type": "cs", "location": "51.675N-9.625W", "ttl_seconds": 86400},
+  "bantry_wave_buoy": {
+    "url": "https://erddap.marine.ie/erddap/tabledap/IWaveBNetwork.csv?time,station_id,latitude,longitude,SeaTemperature,SignificantWaveHeight,PeakPeriod,PeakDirection&station_id=%22Bantry%20Bay%22",
+    "response_format": "csv",
+    "ttl_seconds": 21600,
+    "normalization": {
+      "fields": {"location_name": "station_id", "sample_id": "station_id"},
+      "measurements": [
+        {"value_field": "SeaTemperature", "variable": "sea_temperature"},
+        {"value_field": "SignificantWaveHeight", "variable": "significant_wave_height"},
+        {"value_field": "PeakPeriod", "variable": "peak_period"},
+        {"value_field": "PeakDirection", "variable": "peak_direction"}
+      ]
+    }
+  },
+  "bantry_particles_csv": {
+    "url": "https://erddap.marine.ie/erddap/griddap/BANTRY_PARTICLES.csv",
+    "default_query": "particle_hours[(last):1:(last)][(0):1:(5)][(51.140912310003):20:(51.899102770785255)][(-10.848548076923):20:(-9.3414519231008)]",
+    "response_format": "csv", "ttl_seconds": 21600
+  },
+  "bantry_particles": {
+    "url": "https://erddap.marine.ie/erddap/griddap/BANTRY_PARTICLES.htmlTable?particle_hours[(2026-10-17T00:00:00Z):1:(2026-10-17T00:00:00Z)][(0.0):1:(5.0)][(51.140912310003):1:(51.899102770785255)][(-10.848548076923):1:(-9.3414519231008)]",
+    "ttl_seconds": 21600
+  }
+}

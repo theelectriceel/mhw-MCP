@@ -1,0 +1,708 @@
+[
+  {
+    "name": "list_sources",
+    "description": "List configured data endpoints and adapter settings.",
+    "inputSchema": {
+      "properties": {},
+      "title": "list_sourcesArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "pipeline_status",
+    "description": "Inspect normalized Parquet datasets, freshness and common schema offline.",
+    "inputSchema": {
+      "properties": {},
+      "title": "pipeline_statusArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "fetch_data",
+    "description": "Always fetch live upstream data. Return a staging fetch_id; do not update raw cache or analytical datasets.",
+    "inputSchema": {
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "columns": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Columns"
+        },
+        "constraints": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Constraints"
+        },
+        "slices": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Slices"
+        },
+        "query": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query"
+        },
+        "cds_request": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cds Request"
+        },
+        "latitude": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Longitude"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "fetch_dataArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "cache_store",
+    "description": "Save an already fetched response offline. By default also standardize to Parquet. Never downloads.",
+    "inputSchema": {
+      "properties": {
+        "fetch_id": {
+          "title": "Fetch Id",
+          "type": "string"
+        },
+        "publish": {
+          "default": true,
+          "title": "Publish",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fetch_id"
+      ],
+      "title": "cache_storeArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "pipeline_publish",
+    "description": "Publish an existing raw cache snapshot to Parquet offline. Never fetches missing data.",
+    "inputSchema": {
+      "properties": {
+        "key": {
+          "title": "Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "title": "pipeline_publishArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "pipeline_ingest",
+    "description": "Explicit compatibility batch workflow combining fetch and cache. Prefer fetch_data then cache_store for separate control.",
+    "inputSchema": {
+      "properties": {
+        "sources": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sources"
+        },
+        "force": {
+          "default": false,
+          "title": "Force",
+          "type": "boolean"
+        },
+        "selections": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Selections"
+        }
+      },
+      "title": "pipeline_ingestArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "pipeline_query",
+    "description": "Query standardized data offline by source. Dates are inclusive ISO timestamps; limits 1..10000.",
+    "inputSchema": {
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "filters": {
+          "anyOf": [
+            {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Filters"
+        },
+        "limit": {
+          "default": 100,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "default": 0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "allow_stale": {
+          "default": false,
+          "title": "Allow Stale",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "pipeline_queryArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "analyze_exposure",
+    "description": "Match each phyto observation to nearest point and trailing daily exposure. Returns coverage, unmatched rows and provenance.",
+    "inputSchema": {
+      "properties": {
+        "window_days": {
+          "default": 7,
+          "title": "Window Days",
+          "type": "integer"
+        },
+        "radius_km": {
+          "default": 20,
+          "title": "Radius Km",
+          "type": "number"
+        },
+        "min_coverage": {
+          "default": 0.7,
+          "title": "Min Coverage",
+          "type": "number"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "limit": {
+          "default": 1000,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "allow_stale": {
+          "default": false,
+          "title": "Allow Stale",
+          "type": "boolean"
+        },
+        "phyto_source": {
+          "default": "bantry_phyto",
+          "title": "Phyto Source",
+          "type": "string"
+        },
+        "sst_source": {
+          "default": "eurosea_sst",
+          "title": "Sst Source",
+          "type": "string"
+        },
+        "clim_source": {
+          "default": "eurosea_clim",
+          "title": "Clim Source",
+          "type": "string"
+        },
+        "mhw_source": {
+          "default": "eurosea_mhw",
+          "title": "Mhw Source",
+          "type": "string"
+        },
+        "cs_source": {
+          "default": "eurosea_cs",
+          "title": "Cs Source",
+          "type": "string"
+        }
+      },
+      "title": "analyze_exposureArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "analyze_relationships",
+    "description": "Exploratory per-species anomaly/count Pearson correlations. No causal or forecasting interpretation.",
+    "inputSchema": {
+      "properties": {
+        "window_days": {
+          "default": 7,
+          "title": "Window Days",
+          "type": "integer"
+        },
+        "radius_km": {
+          "default": 20,
+          "title": "Radius Km",
+          "type": "number"
+        },
+        "min_coverage": {
+          "default": 0.7,
+          "title": "Min Coverage",
+          "type": "number"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "allow_stale": {
+          "default": false,
+          "title": "Allow Stale",
+          "type": "boolean"
+        }
+      },
+      "title": "analyze_relationshipsArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "register_source",
+    "description": "Register another ERDDAP link or EuroSea dataset/point without modifying pipeline code.",
+    "inputSchema": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "adapter": {
+          "default": "erddap",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "dataset_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dataset Type"
+        },
+        "location": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Location"
+        },
+        "ttl_seconds": {
+          "default": 86400,
+          "title": "Ttl Seconds",
+          "type": "integer"
+        },
+        "default_query": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default Query"
+        },
+        "response_format": {
+          "default": "json",
+          "title": "Response Format",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ],
+      "title": "register_sourceArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "ingest_ocean_colour",
+    "description": "Ingest Ocean colour from 1997 to present derived from satellite observations.\n\n        Daily chlorophyll-a in mg m-3 at the nearest grid cell. CDS credentials and\n        dataset licence acceptance required. Recent dates may not yet be published.\n        Query the resulting ocean_colour dataset using pipeline_query.\n        ",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "default": 2026,
+          "title": "Year",
+          "type": "integer"
+        },
+        "month": {
+          "default": 3,
+          "title": "Month",
+          "type": "integer"
+        },
+        "day": {
+          "default": 31,
+          "title": "Day",
+          "type": "integer"
+        },
+        "latitude": {
+          "default": 51.675,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "default": -9.625,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "force": {
+          "default": false,
+          "title": "Force",
+          "type": "boolean"
+        }
+      },
+      "title": "ingest_ocean_colourArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "get_hab_bulletin_pages",
+    "description": "Read cached physical HAB pages 12/13 and provenance. Cache miss returns an error; never downloads.",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "default": 2026,
+          "maximum": 9999,
+          "minimum": 1,
+          "title": "Year",
+          "type": "integer"
+        },
+        "week": {
+          "default": 2,
+          "maximum": 51,
+          "minimum": 2,
+          "title": "Week",
+          "type": "integer"
+        }
+      },
+      "title": "get_hab_bulletin_pagesArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "get_hab_page",
+    "description": "Read cached PNG reference only. Never downloads on a miss. Run the local HTTP API to serve the URL.",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "maximum": 9999,
+          "minimum": 1,
+          "title": "Year",
+          "type": "integer"
+        },
+        "week": {
+          "maximum": 51,
+          "minimum": 2,
+          "title": "Week",
+          "type": "integer"
+        },
+        "page": {
+          "maximum": 13,
+          "minimum": 12,
+          "title": "Page",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "week",
+        "page"
+      ],
+      "title": "get_hab_pageArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "fetch_hab_bulletin",
+    "description": "Fetch a fresh PDF into staging and return fetch_id. Do not render or populate the bulletin cache.",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "default": 2026,
+          "maximum": 9999,
+          "minimum": 1,
+          "title": "Year",
+          "type": "integer"
+        },
+        "week": {
+          "default": 2,
+          "maximum": 51,
+          "minimum": 2,
+          "title": "Week",
+          "type": "integer"
+        }
+      },
+      "title": "fetch_hab_bulletinArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "cache_hab_bulletin",
+    "description": "Render and cache an already fetched PDF offline. Never downloads on missing/corrupt receipt.",
+    "inputSchema": {
+      "properties": {
+        "fetch_id": {
+          "title": "Fetch Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fetch_id"
+      ],
+      "title": "cache_hab_bulletinArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "list_available_hab_bulletins",
+    "description": "List cached HAB bulletins after verifying their files and hashes.",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "anyOf": [
+            {
+              "maximum": 9999,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year"
+        }
+      },
+      "title": "list_available_hab_bulletinsArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "backfill_hab_bulletins",
+    "description": "Start a bounded, persistent background backfill; returns a job identifier.",
+    "inputSchema": {
+      "properties": {
+        "year": {
+          "default": 2026,
+          "maximum": 9999,
+          "minimum": 1,
+          "title": "Year",
+          "type": "integer"
+        },
+        "start_week": {
+          "default": 2,
+          "maximum": 51,
+          "minimum": 2,
+          "title": "Start Week",
+          "type": "integer"
+        },
+        "end_week": {
+          "default": 51,
+          "maximum": 51,
+          "minimum": 2,
+          "title": "End Week",
+          "type": "integer"
+        }
+      },
+      "title": "backfill_hab_bulletinsArguments",
+      "type": "object"
+    }
+  },
+  {
+    "name": "hab_backfill_status",
+    "description": "Return progress, errors, storage usage and elapsed time for a HAB job.",
+    "inputSchema": {
+      "properties": {
+        "job_id": {
+          "title": "Job Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "job_id"
+      ],
+      "title": "hab_backfill_statusArguments",
+      "type": "object"
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "source": "bantry_phyto",
+  "constraints": [
+    {"field": "time", "op": ">=", "value": "2026-10-01T00:00:00Z"},
+    {"field": "time", "op": "<", "value": "2026-10-18T00:00:00Z"}
+  ]
+}

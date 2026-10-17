@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "marine-data": {
+      "command": "C:/Users/abraa/OneDrive/Documents/DataExplorationMHW/.venv/Scripts/python.exe",
+      "args": ["C:/Users/abraa/OneDrive/Documents/DataExplorationMHW/mcp_entry.py"]
+    }
+  }
+}

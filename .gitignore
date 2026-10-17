@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+data/
+.venv/
+.pytest_cache/
+*.zip
+.env
+.env.*
+!.env.example
+.cdsapirc
+*.sqlite
+*.sqlite-*
+*.duckdb
+*.duckdb.*
+mcp-config.local.json

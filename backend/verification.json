@@ -1,0 +1,166 @@
+{
+  "checked_at_utc": "2026-10-17T13:40:17.546231+00:00",
+  "problems": [],
+  "server": "marine-data",
+  "tool_names": [
+    "analyze_exposure",
+    "analyze_relationships",
+    "backfill_hab_bulletins",
+    "cache_hab_bulletin",
+    "cache_store",
+    "fetch_data",
+    "fetch_hab_bulletin",
+    "get_hab_bulletin_pages",
+    "get_hab_page",
+    "hab_backfill_status",
+    "ingest_ocean_colour",
+    "list_available_hab_bulletins",
+    "list_sources",
+    "pipeline_ingest",
+    "pipeline_publish",
+    "pipeline_query",
+    "pipeline_status",
+    "register_source"
+  ],
+  "registered_sources": [
+    "bantry_particles",
+    "bantry_particles_csv",
+    "bantry_phyto",
+    "bantry_wave_buoy",
+    "eurosea_clim",
+    "eurosea_cs",
+    "eurosea_mhw",
+    "eurosea_sst",
+    "ocean_colour"
+  ],
+  "cached_datasets": [
+    {
+      "source": "bantry_particles_csv",
+      "rows": 3276,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 2
+    },
+    {
+      "source": "bantry_phyto",
+      "rows": 3564,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "bantry_wave_buoy",
+      "rows": 134416,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "eurosea_clim",
+      "rows": 366,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "eurosea_cs",
+      "rows": 85,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "eurosea_mhw",
+      "rows": 98,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "eurosea_sst",
+      "rows": 16360,
+      "returned_rows": 2,
+      "stale": false,
+      "null_values_in_sample": 0
+    },
+    {
+      "source": "ocean_colour",
+      "rows": 1,
+      "returned_rows": 1,
+      "stale": false,
+      "null_values_in_sample": 1
+    }
+  ],
+  "analyze_exposure": {
+    "returned_rows": 2,
+    "limitations": "Spatial proximity does not establish coastal representativeness. Missing coverage is not evidence of no event. Association is not causation."
+  },
+  "analyze_relationships": {
+    "returned_rows": 187,
+    "limitations": "Exploratory Pearson correlation on raw counts, minimum 3 pairs. Seasonality, repeated samples, spatial dependence and multiple testing are not controlled; no p-values or causal claims."
+  },
+  "hab_week7_cached": true,
+  "hab_page_urls": [
+    "http://127.0.0.1:8000/api/hab/2026/7/page/12",
+    "http://127.0.0.1:8000/api/hab/2026/7/page/13"
+  ],
+  "foreign_working_directory": "passed",
+  "http": {
+    "/health": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "/api/hab": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "/docs": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    },
+    "/openapi.json": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "/api/hab/2026/7/page/12": {
+      "status": 200,
+      "content_type": "image/png"
+    },
+    "/api/hab/2026/7/page/13": {
+      "status": 200,
+      "content_type": "image/png"
+    }
+  },
+  "automated_tests": {
+    "tests": "106",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "22.520"
+  },
+  "dashboard_views": {
+    "Environmental data": "passed",
+    "HAB bulletins": "passed",
+    "Ocean colour": "passed"
+  },
+  "dependency_check": "No broken requirements found",
+  "compilation": "passed",
+  "operation_policy": {
+    "fetch": "live source call; no dataset publication",
+    "cache": "offline receipt publication",
+    "read": "cache only; miss never fetches",
+    "compatibility_batch_workflows": [
+      "pipeline_ingest",
+      "ingest_ocean_colour",
+      "backfill_hab_bulletins"
+    ]
+  },
+  "fixed_issues": [
+    "Preserve receipt-integrity error details",
+    "Retry transient Windows publication locks"
+  ],
+  "data_notes": [
+    "Cached chlorophyll cell is masked/null.",
+    "Buoy archive ends before the default phytoplankton selection."
+  ]
+}

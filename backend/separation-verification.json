@@ -1,0 +1,27 @@
+{
+  "source": "bantry_wave_buoy",
+  "fetched_observations": 1,
+  "cache_empty_after_fetch": true,
+  "publication": "passed",
+  "cache_and_reads_with_fetch_disabled": "passed",
+  "measurement_rows": 4,
+  "measurements": [
+    {
+      "variable": "peak_direction",
+      "unit": "degrees_true"
+    },
+    {
+      "variable": "peak_period",
+      "unit": "s"
+    },
+    {
+      "variable": "sea_temperature",
+      "unit": "degree_C"
+    },
+    {
+      "variable": "significant_wave_height",
+      "unit": "cm"
+    }
+  ],
+  "scope": "Isolated temporary database; existing project selections were unchanged."
+}
